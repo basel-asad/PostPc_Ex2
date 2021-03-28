@@ -7,10 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 
+import java.io.Serializable;
+
 public class MainActivity extends AppCompatActivity {
 
   @VisibleForTesting
   public SimpleCalculator calculator;
+  Serializable saved_state = null;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onSaveInstanceState(@NonNull Bundle outState) {
     super.onSaveInstanceState(outState);
     // todo: save calculator state into the bundle
+    saved_state = calculator.saveState(); //todo: should this be added here?
   }
 
   @Override
