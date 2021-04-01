@@ -1,5 +1,8 @@
 package android.exercise.mini.calculator.app;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,7 +36,18 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
       if(last_element.equals("=")) {
         // if ends with "=", evaluate then return new result
         //todo: clauclate the value of the expression and return it
-        return "still have not implemented the evaluate function";
+//        return "still have not implemented the evaluate function";
+        deleteLast(); // remove the "="
+        int res = calculate();
+        history.clear();
+        if(res > 0){
+          history.add(String.valueOf(res));
+        }
+        else{
+          history.add("-");
+          history.add(String.valueOf(-1 * res));
+        }
+        return String.valueOf(res);
       }
       else{
         // assuming legal values of history
@@ -48,6 +62,31 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
       }
 
     }
+  }
+
+  public int calculate() {
+    int res = 0;
+    int op_sign = 1;
+    for (String s: history) {
+      if(!input_orders.contains(s)){
+        res += op_sign * Integer.parseInt(s);
+      }
+      else{
+        if(s.equals("+")){
+          op_sign = 1;
+        }
+        else if(s.equals("-")){
+          op_sign = -1;
+        }
+//        else{
+//          return s;
+//        }
+
+      }
+    }
+
+//    return String.valueOf(res);
+    return res;
   }
 
   @Override
@@ -93,6 +132,16 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
   public void insertEquals() {
     // todo: calculate the equation. after calling `insertEquals()`, the output should be the result
     //  e.g. given input "14+3", calling `insertEquals()`, and calling `output()`, output should be "17"
+
+    //todo: if last is order, remove it
+    if(history.size() > 0){
+      // remove last sign
+      if(input_orders.contains(history.get(history.size() - 1))){
+        deleteLast();
+      }
+    }
+    history.add("=");
+//    output();
   }
 
   @Override
@@ -106,20 +155,22 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
     if(arr_size > 0){
       history.remove(arr_size - 1);
     }
+//    output();
   }
 
   @Override
   public void clear() {
     // todo: clear everything (same as no-input was never given)
     history = new ArrayList<String>();
+//    output();
   }
 
   @Override
   public Serializable saveState() {
     CalculatorState state = new CalculatorState();
     // todo: insert all data to the state, so in the future we can load from this state
-    Collections.copy(state.history, history);;
-    return state;
+    Collections.copy(state.history, history);
+    return history;
   }
 
   @Override
