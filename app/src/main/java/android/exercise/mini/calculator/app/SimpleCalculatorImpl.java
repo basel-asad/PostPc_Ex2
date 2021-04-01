@@ -38,7 +38,7 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
         //todo: clauclate the value of the expression and return it
 //        return "still have not implemented the evaluate function";
         deleteLast(); // remove the "="
-        int res = calculate();
+        long res = calculate();
         history.clear();
         if(res > 0){
           history.add(String.valueOf(res));
@@ -64,12 +64,12 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
     }
   }
 
-  public int calculate() {
-    int res = 0;
+  public Long calculate() {
+    long res = 0;
     int op_sign = 1;
     for (String s: history) {
       if(!input_orders.contains(s)){
-        res += op_sign * Integer.parseInt(s);
+        res += op_sign * Long.parseLong(s);
       }
       else{
         if(s.equals("+")){
@@ -93,7 +93,16 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
   public void insertDigit(int digit) {
     // todo: insert a digit
     if(0 <= digit && digit <= 9){
-      history.add(String.valueOf(digit));
+      if(history.size() > 0 && !input_orders.contains(history.get(history.size() - 1))){
+        String last_elm = history.get(history.size() - 1);
+        deleteLast(); // remove 6
+        history.add(last_elm + String.valueOf(digit));  // add 67
+
+      }
+      else {
+        // if a sign (or nothing) was inserted before the didigt
+        history.add(String.valueOf(digit));
+      }
     }
     else{
       throw new IllegalArgumentException("Illegal input value");
