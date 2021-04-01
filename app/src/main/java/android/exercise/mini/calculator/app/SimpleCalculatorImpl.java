@@ -164,22 +164,19 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
     if(arr_size > 0){
       history.remove(arr_size - 1);
     }
-//    output();
   }
 
   @Override
   public void clear() {
     // todo: clear everything (same as no-input was never given)
     history = new ArrayList<String>();
-//    output();
   }
 
   @Override
   public Serializable saveState() {
     CalculatorState state = new CalculatorState();
-    // todo: insert all data to the state, so in the future we can load from this state
-    Collections.copy(state.history, history);
-    return history;
+    state.history = new ArrayList<String>(history);
+    return state;
   }
 
   @Override
@@ -188,9 +185,8 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
       return; // ignore
     }
     CalculatorState casted = (CalculatorState) prevState;
-    // todo: use the CalculatorState to load
     history.clear();
-    Collections.copy(history, casted.history);;
+    history.addAll(casted.history);
 
   }
 
