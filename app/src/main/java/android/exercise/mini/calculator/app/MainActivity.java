@@ -119,16 +119,15 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onSaveInstanceState(@NonNull Bundle outState) {
     super.onSaveInstanceState(outState);
-    // todo: save calculator state into the bundle
-//    saved_state = calculator.saveState(); //todo: should this be added here?
+    // save calculator state into the bundle
     outState.putSerializable("history", calculator.saveState());
   }
 
   @Override
   protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
     super.onRestoreInstanceState(savedInstanceState);
-    // todo: restore calculator state from the bundle, refresh main text-view from calculator's output
-    calculator.loadState(savedInstanceState.getSerializable("history")); //todo: test this
+    // restore calculator state from the bundle, refresh main text-view from calculator's output
+    calculator.loadState(savedInstanceState.getSerializable("history"));
     screen.setText(calculator.output());
 
   }

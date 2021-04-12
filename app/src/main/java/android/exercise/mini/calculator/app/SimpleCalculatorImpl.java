@@ -35,12 +35,10 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
       String last_element = history.get(history.size() - 1);
       if(last_element.equals("=")) {
         // if ends with "=", evaluate then return new result
-        //todo: clauclate the value of the expression and return it
-//        return "still have not implemented the evaluate function";
         deleteLast(); // remove the "="
         long res = calculate();
         history.clear();
-        if(res > 0){
+        if(res >= 0){
           history.add(String.valueOf(res));
         }
         else{
@@ -113,7 +111,7 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
   @Override
   public void insertPlus() {
     // todo: insert a plus
-    if(is_order_addition_valid()) {
+    if(prep_and_decide_if_order_addition_valid()) {
       history.add("+");
     }
   }
@@ -121,18 +119,25 @@ public class SimpleCalculatorImpl implements SimpleCalculator {
   @Override
   public void insertMinus() {
     // todo: insert a minus
-    if(is_order_addition_valid()) {
+    if(prep_and_decide_if_order_addition_valid()) {
       history.add("-");
     }
   }
 
-  private boolean is_order_addition_valid() {
+  private boolean prep_and_decide_if_order_addition_valid() {
+    /**
+     * return true if order addition is possible, if the history is empty insert a zero before returning True
+     */
     if (history.size() > 0) {
       String last_element = history.get(history.size() - 1);
       if (input_orders.contains(last_element)) {
         // if the last element is + or -
         return false;
       }
+    }
+    else{
+      // if the history is empty, insert a zero before the sign
+      insertDigit(0);
     }
     return true;
   }
