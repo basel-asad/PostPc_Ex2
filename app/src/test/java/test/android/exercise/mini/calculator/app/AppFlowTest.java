@@ -89,5 +89,126 @@ public class AppFlowTest {
     assertEquals("11", textViewOutput.getText().toString());
   }
 
-  // TODO: add at last 10 more flow tests
+  @Test
+  public void flowTest3(){
+    // run clicks on "7<clear>-5+4="
+    for (View button: Arrays.asList(
+            button7, buttonClear, buttonMinus, button5, buttonPlus, button4, buttonEquals
+    )) {
+      button.performClick();
+    }
+
+    assertEquals("-1", textViewOutput.getText().toString());
+  }
+
+  @Test
+  public void flowTest4(){
+    // run clicks on "4=<clear>"
+    for (View button: Arrays.asList(
+            button4, buttonEquals, buttonClear
+    )) {
+      button.performClick();
+    }
+
+    assertEquals("0", textViewOutput.getText().toString());
+  }
+
+  @Test
+  public void flowTest5(){
+    // run clicks on "-5+4=7"
+    for (View button: Arrays.asList(
+            buttonMinus, button5, buttonPlus, button4, buttonEquals, button7
+    )) {
+      button.performClick();
+    }
+
+    assertEquals("-17", textViewOutput.getText().toString());
+  }
+
+  @Test
+  public void flowTest6(){
+    // run clicks on "-5+4=87<deleteLast>"
+    for (View button: Arrays.asList(
+            buttonMinus, button5, buttonPlus, button4, buttonEquals, button8 ,button7, buttonBackspace
+    )) {
+      button.performClick();
+    }
+
+    assertEquals("-18", textViewOutput.getText().toString());
+  }
+
+  @Test
+  public void flowTest7(){
+    // input is empty, delete twice
+    // run clicks on "<deleteLast><deleteLast>"
+    assertEquals("0", textViewOutput.getText().toString());
+    for (View button: Arrays.asList(
+            buttonBackspace, buttonBackspace
+    )) {
+      button.performClick();
+    }
+
+    assertEquals("0", textViewOutput.getText().toString());
+  }
+
+  @Test
+  public void flowTest8(){
+    // input is **not** empty, delete twice
+    // run clicks on "673<deleteLast><deleteLast>"
+    assertEquals("0", textViewOutput.getText().toString());
+    for (View button: Arrays.asList(
+            button6 ,button7, button3 ,buttonBackspace, buttonBackspace
+    )) {
+      button.performClick();
+    }
+
+    assertEquals("6", textViewOutput.getText().toString());
+  }
+
+  @Test
+  public void flowTest9(){
+    // input is **not** empty, delete twice
+    // run clicks on "673<clear>"
+    assertEquals("0", textViewOutput.getText().toString());
+    for (View button: Arrays.asList(
+            button6 ,button7, button3 ,buttonClear
+    )) {
+      button.performClick();
+    }
+
+    assertEquals("0", textViewOutput.getText().toString());
+  }
+
+  @Test
+  public void flowTest10(){
+    // input is empty, delete twice
+    // run clicks on "<clear>"
+    buttonClear.performClick();
+    assertEquals("0", textViewOutput.getText().toString());
+  }
+
+  @Test
+  public void flowTest11(){
+    // inserting 2 zeroes without equals results in 2 zeroes being in history
+    for (View button: Arrays.asList(
+            button0 , button0
+    )) {
+      button.performClick();
+    }
+
+    assertEquals("00", textViewOutput.getText().toString());
+  }
+
+  @Test
+  public void flowTest12(){
+    // inserting 2 zeroes with equals results in  1 zero being in history
+    for (View button: Arrays.asList(
+            button0 , button0, buttonEquals
+    )) {
+      button.performClick();
+    }
+
+    assertEquals("0", textViewOutput.getText().toString());
+  }
+
 }

@@ -28,14 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     screen = findViewById(R.id.textViewCalculatorOutput);
     define_buttons(screen);
-
-
-    /*
-    TODO:
-    - find all views
-    - initial update main text-view based on calculator's output
-    - set click listeners on all buttons to operate on the calculator and refresh main text-view
-     */
   }
 
   private void define_buttons(TextView screen){
