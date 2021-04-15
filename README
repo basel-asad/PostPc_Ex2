@@ -1,1 +1,19 @@
 I pledge the highest level of ethical principles in support of academic excellence.  I ensure that all of my work reflects my own abilities and not those of someone else.
+
+theoratical question:
+	Saying we want to add a cool feature - button "x" to run multiplication.
+	What code do we need to change/add/remove to support this feature?
+	Which tests can we run on the calculator? On the activity? On the app?
+
+	
+	1) we would need to add the button with X in it to the UI.
+	2) 'input_orders' in "SimpleCalculatorImpl" should be modified to include "X" as well .
+	3) 'calculate' in "SimpleCalculatorImpl" needs to be modified to support multiplication.
+	4) 'insertMultiply' needs to be added to "SimpleCalculatorImpl".
+	
+	5) in MainActivity inside 'define_buttons' the multiplication button needs to be addressed as well (defined).
+	
+	6) tests: 
+		1) testing if clicking the button calls the function "insertMultiply". (using mockito)
+		2) trying out various flow tests, to see that the multiplication actully works. (button variable needs to be add at the top of 'AppFlowTest')
+		
